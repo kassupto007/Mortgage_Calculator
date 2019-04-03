@@ -2,8 +2,6 @@ package sample;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.NumberFormat;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -17,7 +15,6 @@ public class MortgageCalculatorController {
         currency.setRoundingMode(RoundingMode.HALF_UP);
         yearSlider.valueProperty().addListener(
                 (ov, oldValue, newValue) -> {
-
                     years = BigDecimal.valueOf(newValue.intValue());
                     yearLabel.setText(year.format(years));
                 }
@@ -26,7 +23,7 @@ public class MortgageCalculatorController {
 
     private static final NumberFormat currency = NumberFormat.getCurrencyInstance();
     //private static final NumberFormat percent = NumberFormat.getPercentInstance();
-    private static final NumberFormat year = NumberFormat.getInstance();
+    private static final NumberFormat year = NumberFormat.getIntegerInstance();
 
     private BigDecimal years = new BigDecimal(10);
     private BigDecimal hundred = new BigDecimal(100);
@@ -64,7 +61,7 @@ public class MortgageCalculatorController {
         BigDecimal n = slidervalue.multiply(twelve);
         //Change n from bigDecimal to integer because pow only takes integer
         int kazi = n.intValue();
-
+        String qw = String.valueOf(kazi);
         //VVVVVVVVVVV
         BigDecimal purchase_price = new BigDecimal(purchasePriceTextField.getText());
         BigDecimal down_payment = new BigDecimal(downPaymentTextField.getText());
@@ -74,22 +71,20 @@ public class MortgageCalculatorController {
         BigDecimal interest_rate = rate.divide(hundred);
         BigDecimal r = interest_rate.divide(twelve);
 
-        BigDecimal numofpayments = twelve.multiply(years);
-
-
-
+        //Numerator
         BigDecimal ex = one.add(r);
         BigDecimal exponent = ex.pow(kazi);
         BigDecimal numerator = loan_amount.multiply(exponent);
+        BigDecimal numeratormain = numerator.multiply(r);
 
-
-        BigDecimal fx = one.subtract(r);
+        //Denomator
+        BigDecimal fx = one.add(r);
         BigDecimal expon2 = fx.pow(kazi);
         BigDecimal denomerator = expon2.subtract(one);
 
-        BigDecimal whole = numerator.divide(denomerator);
+        BigDecimal whole = numeratormain.divide(denomerator);
 
-        totalTextField.setText(currency.format(whole));
+        totalTextField.setText(year.format(kazi));
 
 
     }
