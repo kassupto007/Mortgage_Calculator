@@ -1,5 +1,4 @@
 package sample;
-import java.math.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.NumberFormat;
@@ -72,8 +71,10 @@ public class MortgageCalculatorController {
         BigDecimal monthlyPayment2 = term.pow(roundedNumberOfPayments);
         BigDecimal numerator = monthlyPayment1.multiply(monthlyPayment2);
         BigDecimal denominator = monthlyPayment2.subtract(one);
-        double u = denominator.doubleValue();
+
         double w = numerator.doubleValue();
+        double u = denominator.doubleValue();
+
         double monthlyPayment = w/u;
         totalTextField.setText(getYears.format(monthlyPayment));
     }
