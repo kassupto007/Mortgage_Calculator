@@ -69,9 +69,7 @@ public class MortgageCalculatorController {
         BigDecimal rate1 = new BigDecimal(i);
 
 //No Longer Problem
-
         BigDecimal ratePerMonth = rate1.divide(twelve);
-        totalTextField.setText(getYears.format(ratePerMonth));
 //No Longer Problem
 
 
