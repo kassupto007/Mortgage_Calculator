@@ -1,4 +1,5 @@
 package sample;
+import java.math.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.NumberFormat;
@@ -59,7 +60,7 @@ public class MortgageCalculatorController {
         String x = yearLabel.getText();
         int jk = Integer.parseInt(x);
         BigDecimal getYearLabel = new BigDecimal(x);
-//WORKS ^^^^^^^^^^
+
 
         BigDecimal paymentNumber =  getYearLabel.multiply(twelve);
         String userRate = interestRateTextField.getText();
@@ -71,17 +72,22 @@ public class MortgageCalculatorController {
 //No Longer Problem
         BigDecimal ratePerMonth = rate1.divide(twelve);
 //No Longer Problem
-
-
-        //int roundedNumberOfPayments= paymentNumber.intValue();
-
-        int roundedNumberOfPayments = jk * 12;
+        int roundedNumberOfPayments = paymentNumber.intValue();
         BigDecimal term = one.add(ratePerMonth);
+
         BigDecimal monthlyPayment1 = ratePerMonth.multiply(loanAmount);
+
+//WORKS ^^^^^^^^^^
+
+
+
+
         BigDecimal monthlyPayment2 = term.pow(roundedNumberOfPayments);
         BigDecimal numerator = monthlyPayment1.multiply(monthlyPayment2);
         BigDecimal denominator = monthlyPayment2.subtract(one);
         BigDecimal monthlyPayment = numerator.divide(denominator);
-        //totalTextField.setText(getYears.format(monthlyPayment));
+
+        totalTextField.setText(getYears.format(monthlyPayment1));
+
     }
 }
