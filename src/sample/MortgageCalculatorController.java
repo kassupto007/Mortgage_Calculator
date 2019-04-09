@@ -58,7 +58,6 @@ public class MortgageCalculatorController {
         BigDecimal loanAmount = purchasePrice.subtract(downPayment);
         loanAmountTextField.setText(getYears.format(loanAmount));
         String x = yearLabel.getText();
-        int jk = Integer.parseInt(x);
         BigDecimal getYearLabel = new BigDecimal(x);
 
 
@@ -76,18 +75,17 @@ public class MortgageCalculatorController {
         BigDecimal term = one.add(ratePerMonth);
 
         BigDecimal monthlyPayment1 = ratePerMonth.multiply(loanAmount);
-
-//WORKS ^^^^^^^^^^
-
-
-
-
         BigDecimal monthlyPayment2 = term.pow(roundedNumberOfPayments);
         BigDecimal numerator = monthlyPayment1.multiply(monthlyPayment2);
+//WORKS ^^^^^^^^^^
+        
+
+
         BigDecimal denominator = monthlyPayment2.subtract(one);
         BigDecimal monthlyPayment = numerator.divide(denominator);
 
-        totalTextField.setText(getYears.format(monthlyPayment1));
+
+        //totalTextField.setText(getYears.format(monthlyPayment1));
 
     }
 }
