@@ -52,39 +52,38 @@ public class MortgageCalculatorController {
     void calculateButtonPressed() {
         String stringPurchasePrice = purchasePriceTextField.getText();
         BigDecimal purchasePrice = new BigDecimal(stringPurchasePrice);
-        BigDecimal purchasePrice1 = new BigDecimal(String.valueOf(purchasePrice));
         String stringDownPayment = downPaymentTextField.getText();
         BigDecimal downPayment = new BigDecimal(stringDownPayment);
-        BigDecimal loanAmount = purchasePrice1.subtract(downPayment);
+        BigDecimal loanAmount = purchasePrice.subtract(downPayment);
         loanAmountTextField.setText(getYears.format(loanAmount));
+        String x = yearLabel.getText();
+        int jk = Integer.parseInt(x);
+        BigDecimal getYearLabel = new BigDecimal(x);
+//WORKS ^^^^^^^^^^
 
-        String hi = yearLabel.getText();
-        int jk = Integer.parseInt(hi);
-
-
-        BigDecimal getYearLabel = new BigDecimal(jk);
         BigDecimal paymentNumber =  getYearLabel.multiply(twelve);
-
         String userRate = interestRateTextField.getText();
-        BigDecimal Rate =  new BigDecimal(userRate);
-        BigDecimal ratePerMonthEx = Rate.divide(hundred);
-        BigDecimal ratePerMonth = ratePerMonthEx.divide(twelve);
+        BigDecimal rate =  new BigDecimal(userRate);
+        BigDecimal ratePerMonthEx = rate.divide(hundred);
+        double i = ratePerMonthEx.doubleValue();
+        BigDecimal rate1 = new BigDecimal(i);
+
+//No Longer Problem
+
+        BigDecimal ratePerMonth = rate1.divide(twelve);
+        totalTextField.setText(getYears.format(ratePerMonth));
+//No Longer Problem
+
 
         //int roundedNumberOfPayments= paymentNumber.intValue();
 
         int roundedNumberOfPayments = jk * 12;
-
-
         BigDecimal term = one.add(ratePerMonth);
         BigDecimal monthlyPayment1 = ratePerMonth.multiply(loanAmount);
         BigDecimal monthlyPayment2 = term.pow(roundedNumberOfPayments);
         BigDecimal numerator = monthlyPayment1.multiply(monthlyPayment2);
-        loanAmountTextField.setText(getYears.format(numerator));
-
-
-
-//        BigDecimal denominator = monthlyPayment2.subtract(one);
-//        BigDecimal monthlyPayment = numerator.divide(denominator);
-//        totalTextField.setText(getYears.format(monthlyPayment));
+        BigDecimal denominator = monthlyPayment2.subtract(one);
+        BigDecimal monthlyPayment = numerator.divide(denominator);
+        //totalTextField.setText(getYears.format(monthlyPayment));
     }
 }
